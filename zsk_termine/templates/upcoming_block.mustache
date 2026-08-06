@@ -1,0 +1,36 @@
+<div id="local-termine-upcoming" class="local-zsk-fp-element-section local-termine-block">
+    {{{titlehtml}}}
+    {{#showmanage}}
+    <p class="local-termine-manage-row mb-2 text-end">
+        <a href="{{manageurl}}" class="local-termine-manage-link">{{managelabel}}</a>
+    </p>
+    {{/showmanage}}
+    {{> local_zsk_termine/view_tabs }}
+    {{#showevents}}
+    <ul class="local-termine-list">
+        {{#events}}
+        <li class="local-termine-item{{#highlighted}} local-termine-highlighted{{/highlighted}}{{#cancelled}} local-termine-cancelled{{/cancelled}}">
+            <span class="local-termine-item-icon">{{{iconhtml}}}</span>
+            <div class="local-termine-item-body">
+                <a href="{{detailurl}}" class="local-termine-item-title">{{title}}</a>
+                <div class="local-termine-item-meta">
+                    <span class="local-termine-datetime">{{datetime}}</span>
+                    {{#haslocation}}<span class="local-termine-location">{{location}}</span>{{/haslocation}}
+                    <span class="local-termine-category">{{categoryname}}</span>
+                </div>
+                {{#haspreview}}
+                <div class="local-termine-preview">{{preview}}</div>
+                {{/haspreview}}
+                {{#cancelled}}<span class="badge badge-secondary">{{cancelledlabel}}</span>{{/cancelled}}
+            </div>
+        </li>
+        {{/events}}
+    </ul>
+    {{/showevents}}
+    {{#noeventspreview}}
+    <p class="local-termine-empty text-muted mb-0">{{noeventspreviewtext}}</p>
+    {{/noeventspreview}}
+    {{#showbranding}}
+    <div class="local-termine-branding text-muted small mt-2">{{brandinglabel}}</div>
+    {{/showbranding}}
+</div>
