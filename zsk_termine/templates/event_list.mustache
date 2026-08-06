@@ -1,0 +1,24 @@
+{{#empty}}
+<p class="local-termine-empty">{{emptytext}}</p>
+{{/empty}}
+{{^empty}}
+<ul class="local-termine-list local-termine-list-full">
+    {{#events}}
+    <li class="local-termine-item{{#highlighted}} local-termine-highlighted{{/highlighted}}{{#cancelled}} local-termine-cancelled{{/cancelled}}">
+        <span class="local-termine-item-icon">{{{iconhtml}}}</span>
+        <div class="local-termine-item-body">
+            <a href="{{detailurl}}" class="local-termine-item-title">{{title}}</a>
+            <div class="local-termine-item-meta">
+                <span class="local-termine-datetime">{{datetime}}</span>
+                {{#haslocation}}<span class="local-termine-location">{{location}}</span>{{/haslocation}}
+                <span class="local-termine-category">{{categoryname}}</span>
+            </div>
+            {{#cancelled}}<span class="badge badge-secondary">{{cancelledlabel}}</span>{{/cancelled}}
+            {{#haspreview}}
+            <div class="local-termine-preview">{{preview}}</div>
+            {{/haspreview}}
+        </div>
+    </li>
+    {{/events}}
+</ul>
+{{/empty}}

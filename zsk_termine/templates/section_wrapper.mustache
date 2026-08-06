@@ -1,0 +1,17 @@
+{{!
+    @template local_zsk_termine/section_wrapper
+
+    Frontpage or dashboard section wrapper around the upcoming events block.
+
+    Context variables:
+    * sectionid - DOM id for the section
+    * sectionclass - CSS class for the section
+    * skipid - skip target id
+    * skiptext - accessible skip link text
+    * contenthtml - pre-rendered block HTML
+}}
+<a class="skip-block skip aabtn" href="#{{skipid}}">{{skiptext}}</a>
+<div id="{{sectionid}}" class="{{sectionclass}}">
+    {{{contenthtml}}}
+</div>
+<span class="skip-block-to" id="{{skipid}}"></span>
