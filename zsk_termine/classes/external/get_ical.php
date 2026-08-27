@@ -78,7 +78,7 @@ class get_ical extends \external_api {
      */
     public static function execute_returns(): \external_single_structure {
         return new \external_single_structure([
-            'ical' => new \external_value(PARAM_RAW, 'iCalendar VCALENDAR content'),
+            'ical' => new \external_value(PARAM_TEXT, 'iCalendar VCALENDAR content'),
         ]);
     }
 }

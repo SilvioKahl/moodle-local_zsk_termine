@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ $PAGE->set_pagelayout('admin');
 $PAGE->set_title(get_string('manage_events_list', 'local_zsk_termine'));
 $PAGE->set_heading(get_string('manage_events_list', 'local_zsk_termine'));
 
-$events = local_zsk_termine_get_upcoming_events(null, 0, true, LOCAL_ZSK_TERMINE_COURSE_ALL);
+$events = local_zsk_termine_get_upcoming_events(null, 0, true, \local_zsk_termine\local\constants::COURSE_ALL);
 
 echo $OUTPUT->header();
 echo html_writer::div(

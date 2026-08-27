@@ -361,5 +361,11 @@ function xmldb_local_zsk_termine_upgrade(int $oldversion): bool {
         upgrade_plugin_savepoint(true, 2025070903, 'local', 'zsk_termine');
     }
 
+    if ($oldversion < 2025082700) {
+        // moodle.org review: remove leftover recovery endpoint strings (endpoint already deleted),
+        // Frankenstyle class constants, privacy metadata expansion, PARAM cleanup, AMD rebuild.
+        upgrade_plugin_savepoint(true, 2025082700, 'local', 'zsk_termine');
+    }
+
     return true;
 }

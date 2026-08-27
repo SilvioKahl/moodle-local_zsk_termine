@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -29,35 +29,35 @@ require_login();
 local_zsk_termine_require_view();
 
 $categoryid = optional_param('categoryid', 0, PARAM_INT);
-$view = optional_param('view', LOCAL_ZSK_TERMINE_VIEW_UPCOMING, PARAM_ALPHA);
-if ($view !== LOCAL_ZSK_TERMINE_VIEW_PAST) {
-    $view = LOCAL_ZSK_TERMINE_VIEW_UPCOMING;
+$view = optional_param('view', \local_zsk_termine\local\constants::VIEW_UPCOMING, PARAM_ALPHA);
+if ($view !== \local_zsk_termine\local\constants::VIEW_PAST) {
+    $view = \local_zsk_termine\local\constants::VIEW_UPCOMING;
 }
 
 $urlparams = [];
 if ($categoryid > 0) {
     $urlparams['categoryid'] = $categoryid;
 }
-if ($view === LOCAL_ZSK_TERMINE_VIEW_PAST) {
-    $urlparams['view'] = LOCAL_ZSK_TERMINE_VIEW_PAST;
+if ($view === \local_zsk_termine\local\constants::VIEW_PAST) {
+    $urlparams['view'] = \local_zsk_termine\local\constants::VIEW_PAST;
 }
 
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/zsk_termine/index.php', $urlparams));
 $PAGE->set_pagelayout('standard');
-$pagetitle = $view === LOCAL_ZSK_TERMINE_VIEW_PAST
+$pagetitle = $view === \local_zsk_termine\local\constants::VIEW_PAST
     ? get_string('past_events', 'local_zsk_termine')
     : get_string('all_events', 'local_zsk_termine');
 $PAGE->set_title($pagetitle);
 $PAGE->set_heading($pagetitle);
 
 $categoryfilter = $categoryid > 0 ? $categoryid : null;
-if ($view === LOCAL_ZSK_TERMINE_VIEW_PAST) {
-    $events = local_zsk_termine_get_past_events($categoryfilter, 0, LOCAL_ZSK_TERMINE_COURSE_ALL);
+if ($view === \local_zsk_termine\local\constants::VIEW_PAST) {
+    $events = local_zsk_termine_get_past_events($categoryfilter, 0, \local_zsk_termine\local\constants::COURSE_ALL);
     $emptytext = get_string('no_past_events', 'local_zsk_termine');
 } else {
-    $events = local_zsk_termine_get_upcoming_events($categoryfilter, 0, false, LOCAL_ZSK_TERMINE_COURSE_ALL);
+    $events = local_zsk_termine_get_upcoming_events($categoryfilter, 0, false, \local_zsk_termine\local\constants::COURSE_ALL);
     $emptytext = get_string('no_events', 'local_zsk_termine');
 }
 
@@ -75,7 +75,7 @@ echo local_zsk_termine_render_view_tabs_html($view, $categoryid);
 $cats = local_zsk_termine_get_categories();
 if (count($cats) > 1) {
     $links = [];
-    $allparams = $view === LOCAL_ZSK_TERMINE_VIEW_PAST ? ['view' => LOCAL_ZSK_TERMINE_VIEW_PAST] : [];
+    $allparams = $view === \local_zsk_termine\local\constants::VIEW_PAST ? ['view' => \local_zsk_termine\local\constants::VIEW_PAST] : [];
     $links[] = html_writer::link(
         new moodle_url('/local/zsk_termine/index.php', $allparams),
         get_string('all_categories', 'local_zsk_termine'),

@@ -16,28 +16,28 @@
 //
 
 /**
- * Part of the ZSK upcoming events local plugin.
+ * Plugin constants (Frankenstyle-safe class constants).
  *
  * @package    local_zsk_termine
  * @copyright  2025 Silvio Kuhn
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(__DIR__ . '/../../config.php');
 
-$action = optional_param('action', 'open', PARAM_ALPHA);
-$token = required_param('t', PARAM_ALPHANUMEXT);
-$url = optional_param('url', '', PARAM_URL);
+namespace local_zsk_termine\local;
 
-\local_zsk_termine\notification\tracker::record_action($token, $action);
+defined('MOODLE_INTERNAL') || die();
 
-if ($action === 'click' && $url !== '') {
-    $cleanurl = clean_param($url, PARAM_URL);
-    if ($cleanurl !== '') {
-        redirect(new moodle_url($cleanurl));
-    }
+/**
+ * Named constants for course filters and list views.
+ */
+class constants {
+
+    /** Show events regardless of course assignment (admin lists). */
+    public const COURSE_ALL = -1;
+
+    /** List view: upcoming events (default). */
+    public const VIEW_UPCOMING = 'upcoming';
+
+    /** List view: past events. */
+    public const VIEW_PAST = 'past';
 }
-
-header('Content-Type: image/gif');
-header('Cache-Control: no-store, no-cache, must-revalidate');
-echo base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
-die();

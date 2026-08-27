@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -228,6 +228,12 @@ $string['privacy:metadata:clickedat'] = 'The time a link in the notification e-m
 $string['privacy:metadata:event'] = 'Events last modified by a user.';
 $string['privacy:metadata:eventid'] = 'The ID of the related event.';
 $string['privacy:metadata:eventtitle'] = 'The title of the event.';
+$string['privacy:metadata:eventshortdescription'] = 'A short plain-text preview of the event.';
+$string['privacy:metadata:eventdescription'] = 'The full event description text.';
+$string['privacy:metadata:eventlocation'] = 'The event location.';
+$string['privacy:metadata:eventcourseid'] = 'The course ID for course-specific events (0 = site-wide).';
+$string['privacy:metadata:eventtimestart'] = 'The start time of the event.';
+$string['privacy:metadata:eventtimeend'] = 'The end time of the event.';
 $string['privacy:metadata:notifylog'] = 'Log entries for notification e-mails sent to users.';
 $string['privacy:metadata:opened'] = 'Whether the notification e-mail was opened.';
 $string['privacy:metadata:openedat'] = 'The time the notification e-mail was opened.';
@@ -239,9 +245,3 @@ $string['privacy:metadata:timesent'] = 'The time the notification was sent.';
 $string['privacy:metadata:tracktoken'] = 'A token used to track e-mail opens and clicks.';
 $string['privacy:metadata:userid'] = 'The ID of the user.';
 $string['privacy:metadata:usermodified'] = 'The user who last modified the event.';
-$string['recover_clearcookies'] = 'Clear your browser cookies, then reload the site home page.';
-$string['recover_deletefile'] = 'Delete this file from the server now.';
-$string['recover_forbidden'] = 'Forbidden.';
-$string['recover_heading'] = 'ZSK Termine config recovery';
-$string['recover_title'] = 'ZSK Termine config recovery';
-$string['recover_valueswritten'] = '{$a} configuration values were written.';

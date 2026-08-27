@@ -51,7 +51,7 @@ if ($hassiteconfig) {
         get_string('license_server_url', 'local_zsk_termine'),
         get_string('license_server_url_desc', 'local_zsk_termine'),
         '',
-        PARAM_RAW
+        PARAM_URL
     ));
 
     $license->add(new admin_setting_configtext(

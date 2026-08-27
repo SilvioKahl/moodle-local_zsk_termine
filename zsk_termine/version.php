@@ -18,6 +18,8 @@
 /**
  * Part of the ZSK upcoming events local plugin.
  *
+ * Recommended public Git repository name: moodle-local_zsk_termine
+ *
  * @package    local_zsk_termine
  * @copyright  2025 Silvio Kuhn
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_zsk_termine';
-$plugin->version   = 2025070905;
+$plugin->version   = 2025082700;
 $plugin->requires  = 2022112800; // Moodle 4.1.
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.4.17';
+$plugin->release   = '1.4.18';

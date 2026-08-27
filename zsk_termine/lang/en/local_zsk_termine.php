@@ -36,6 +36,12 @@ $string['privacy:metadata:stat'] = 'View and interaction statistics for events.'
 $string['privacy:metadata:event'] = 'Events last modified by a user.';
 $string['privacy:metadata:eventid'] = 'The ID of the related event.';
 $string['privacy:metadata:eventtitle'] = 'The title of the event.';
+$string['privacy:metadata:eventshortdescription'] = 'A short plain-text preview of the event.';
+$string['privacy:metadata:eventdescription'] = 'The full event description text.';
+$string['privacy:metadata:eventlocation'] = 'The event location.';
+$string['privacy:metadata:eventcourseid'] = 'The course ID for course-specific events (0 = site-wide).';
+$string['privacy:metadata:eventtimestart'] = 'The start time of the event.';
+$string['privacy:metadata:eventtimeend'] = 'The end time of the event.';
 $string['privacy:metadata:usermodified'] = 'The user who last modified the event.';
 $string['privacy:metadata:timemodified'] = 'The time the event was last modified.';
 $string['privacy:metadata:sendtype'] = 'The type of notification sent (new, reminder or cancellation).';
@@ -51,14 +57,6 @@ $string['privacy:metadata:license_server:license_key'] = 'The optional premium l
 $string['privacy:metadata:license_server:site_url'] = 'The Moodle site URL used for license verification.';
 $string['privacy:metadata:webhook'] = 'Optional admin-configured webhook receives event metadata (title, times, course id). No user accounts or e-mail addresses are transmitted.';
 $string['privacy:metadata:webhook:event'] = 'Event metadata sent to the configured webhook endpoint.';
-
-
-$string['recover_forbidden'] = 'Forbidden.';
-$string['recover_title'] = 'ZSK Termine config recovery';
-$string['recover_heading'] = 'ZSK Termine config recovery';
-$string['recover_valueswritten'] = '{$a} configuration values were written.';
-$string['recover_clearcookies'] = 'Clear your browser cookies, then reload the site home page.';
-$string['recover_deletefile'] = 'Delete this file from the server now.';
 
 $string['nopermission'] = 'You do not have permission to perform this action.';
 

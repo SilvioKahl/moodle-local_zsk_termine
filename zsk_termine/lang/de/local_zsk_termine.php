@@ -36,6 +36,12 @@ $string['privacy:metadata:stat'] = 'Aufruf- und Interaktionsstatistiken zu Termi
 $string['privacy:metadata:event'] = 'Von einem Benutzer zuletzt geänderte Termine.';
 $string['privacy:metadata:eventid'] = 'Die ID des zugehörigen Termins.';
 $string['privacy:metadata:eventtitle'] = 'Der Titel des Termins.';
+$string['privacy:metadata:eventshortdescription'] = 'Kurze Klartext-Vorschau des Termins.';
+$string['privacy:metadata:eventdescription'] = 'Der vollständige Beschreibungstext des Termins.';
+$string['privacy:metadata:eventlocation'] = 'Der Ort des Termins.';
+$string['privacy:metadata:eventcourseid'] = 'Die Kurs-ID bei kursbezogenen Terminen (0 = seitenweit).';
+$string['privacy:metadata:eventtimestart'] = 'Startzeit des Termins.';
+$string['privacy:metadata:eventtimeend'] = 'Endzeit des Termins.';
 $string['privacy:metadata:usermodified'] = 'Der Benutzer, der den Termin zuletzt geändert hat.';
 $string['privacy:metadata:timemodified'] = 'Zeitpunkt der letzten Änderung des Termins.';
 $string['privacy:metadata:sendtype'] = 'Art der Benachrichtigung (neu, Erinnerung oder Absage).';
@@ -51,13 +57,6 @@ $string['privacy:metadata:license_server:license_key'] = 'Der optionale Premium-
 $string['privacy:metadata:license_server:site_url'] = 'Die Moodle-Site-URL für die Lizenzprüfung.';
 $string['privacy:metadata:webhook'] = 'Ein optionaler Admin-Webhook erhält Termin-Metadaten (Titel, Zeiten, Kurs-ID). Es werden keine Benutzerkonten oder E-Mail-Adressen übertragen.';
 $string['privacy:metadata:webhook:event'] = 'Termin-Metadaten an den konfigurierten Webhook-Endpunkt.';
-
-$string['recover_forbidden'] = 'Zugriff verweigert.';
-$string['recover_title'] = 'ZSK Termine Konfigurations-Wiederherstellung';
-$string['recover_heading'] = 'ZSK Termine Konfigurations-Wiederherstellung';
-$string['recover_valueswritten'] = '{$a} Konfigurationswerte wurden gesetzt.';
-$string['recover_clearcookies'] = 'Browser-Cookies löschen und die Startseite neu laden.';
-$string['recover_deletefile'] = 'Diese Datei jetzt vom Server löschen.';
 
 $string['nopermission'] = 'Sie haben keine Berechtigung für diese Aktion.';
 

@@ -29,6 +29,18 @@ Central event management for Moodle: categories, site-wide and course-specific e
 
 moodle.org-Texte (DE/EN, Nutzen für Organisation): [`docs/MOODLE_ORG_TERMINE.md`](../../docs/MOODLE_ORG_TERMINE.md)
 
+## Git repository naming
+
+For moodle.org / Plugins directory the public Git repository should be named:
+
+```text
+moodle-local_zsk_termine
+```
+
+(not `zsk_termine`, `local_termine`, or similar). Folder inside Moodle remains `local/zsk_termine`.
+
+Review notes: [`docs/de/MOODLE_ORG_REVIEW.md`](docs/de/MOODLE_ORG_REVIEW.md)
+
 ## Web services (Pro)
 
 German setup guide: [docs/de/webservices.md](docs/de/webservices.md) (enable REST, create token, test with `curl`).

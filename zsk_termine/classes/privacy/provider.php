@@ -77,6 +77,12 @@ class provider implements
 
         $collection->add_database_table(self::TABLE_EVENT, [
             'title' => 'privacy:metadata:eventtitle',
+            'shortdescription' => 'privacy:metadata:eventshortdescription',
+            'description' => 'privacy:metadata:eventdescription',
+            'location' => 'privacy:metadata:eventlocation',
+            'courseid' => 'privacy:metadata:eventcourseid',
+            'timestart' => 'privacy:metadata:eventtimestart',
+            'timeend' => 'privacy:metadata:eventtimeend',
             'usermodified' => 'privacy:metadata:usermodified',
             'timemodified' => 'privacy:metadata:timemodified',
         ], 'privacy:metadata:event');
@@ -310,12 +316,17 @@ class provider implements
         $events = $DB->get_records(self::TABLE_EVENT, [
             'usermodified' => $userid,
             'courseid' => $courseid,
-        ], 'timemodified ASC', 'id, title, timemodified');
+        ], 'timemodified ASC', 'id, title, shortdescription, description, location, timestart, timeend, timemodified');
 
         $entries = [];
         foreach ($events as $event) {
             $entries[] = (object) [
                 'title' => $event->title,
+                'shortdescription' => (string) ($event->shortdescription ?? ''),
+                'description' => (string) ($event->description ?? ''),
+                'location' => (string) ($event->location ?? ''),
+                'timestart' => transform::datetime((int) $event->timestart),
+                'timeend' => !empty($event->timeend) ? transform::datetime((int) $event->timeend) : '',
                 'timemodified' => transform::datetime($event->timemodified),
             ];
         }

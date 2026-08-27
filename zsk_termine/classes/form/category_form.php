@@ -46,7 +46,7 @@ class category_form extends \moodleform {
         $mform->addHelpButton('name_en', 'category_name_en', 'local_zsk_termine');
 
         $mform->addElement('text', 'icon', get_string('category_icon', 'local_zsk_termine'), ['size' => 32]);
-        $mform->setType('icon', PARAM_RAW);
+        $mform->setType('icon', PARAM_TEXT);
         $mform->setDefault('icon', 'i/calendar');
         $mform->addHelpButton('icon', 'category_icon', 'local_zsk_termine');
 
@@ -65,10 +65,10 @@ class category_form extends \moodleform {
                 $mform->setType('notify_subject_' . $lang, PARAM_TEXT);
 
                 $mform->addElement('textarea', 'notify_bodyhtml_' . $lang, get_string('category_email_bodyhtml', 'local_zsk_termine'), ['rows' => 6, 'cols' => 80]);
-                $mform->setType('notify_bodyhtml_' . $lang, PARAM_RAW);
+                $mform->setType('notify_bodyhtml_' . $lang, PARAM_CLEANHTML);
 
                 $mform->addElement('textarea', 'notify_bodyplain_' . $lang, get_string('category_email_bodyplain', 'local_zsk_termine'), ['rows' => 4, 'cols' => 80]);
-                $mform->setType('notify_bodyplain_' . $lang, PARAM_RAW);
+                $mform->setType('notify_bodyplain_' . $lang, PARAM_TEXT);
             }
         }
 

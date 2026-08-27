@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -36,7 +36,7 @@ if ($expected === '' || !hash_equals($expected, $token)) {
     throw new moodle_exception('invalidtoken', 'error');
 }
 
-$ical = local_zsk_termine_build_ical_feed(null, LOCAL_ZSK_TERMINE_COURSE_ALL);
+$ical = local_zsk_termine_build_ical_feed(null, \local_zsk_termine\local\constants::COURSE_ALL);
 
 header('Content-Type: text/calendar; charset=utf-8');
 header('Content-Disposition: attachment; filename="zsk-termine.ics"');

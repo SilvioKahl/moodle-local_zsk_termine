@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,13 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
-
-/** Show events regardless of course assignment (admin lists). */
-define('LOCAL_ZSK_TERMINE_COURSE_ALL', -1);
-
-/** List view: upcoming (default) or past events. */
-define('LOCAL_ZSK_TERMINE_VIEW_UPCOMING', 'upcoming');
-define('LOCAL_ZSK_TERMINE_VIEW_PAST', 'past');
 
 /**
  * Ensure config_plugins defaults exist (avoids upgradesettings loops without CLI seed).
@@ -410,7 +403,7 @@ function local_zsk_termine_format_course_label(stdClass $event): string {
  * @param int|null $categoryid
  * @param int $limit 0 = no limit
  * @param bool $includepast
- * @param int|null $courseid 0/null = site-wide only, &gt;0 = one course, LOCAL_ZSK_TERMINE_COURSE_ALL = all
+ * @param int|null $courseid 0/null = site-wide only, &gt;0 = one course, \local_zsk_termine\local\constants::COURSE_ALL = all
  * @return stdClass[]
  */
 function local_zsk_termine_get_upcoming_events(
@@ -436,7 +429,7 @@ function local_zsk_termine_get_upcoming_events(
         $params['categoryid'] = $categoryid;
     }
 
-    if ($courseid === LOCAL_ZSK_TERMINE_COURSE_ALL) {
+    if ($courseid === \local_zsk_termine\local\constants::COURSE_ALL) {
         // No course filter (admin overview).
     } else if ($courseid !== null && $courseid > 0) {
         $where .= ' AND e.courseid = :courseid';
@@ -461,7 +454,7 @@ function local_zsk_termine_get_upcoming_events(
  *
  * @param int|null $categoryid
  * @param int $limit 0 = no limit
- * @param int|null $courseid 0/null = site-wide only, &gt;0 = one course, LOCAL_ZSK_TERMINE_COURSE_ALL = all
+ * @param int|null $courseid 0/null = site-wide only, &gt;0 = one course, \local_zsk_termine\local\constants::COURSE_ALL = all
  * @return stdClass[]
  */
 function local_zsk_termine_get_past_events(
@@ -483,7 +476,7 @@ function local_zsk_termine_get_past_events(
         $params['categoryid'] = $categoryid;
     }
 
-    if ($courseid === LOCAL_ZSK_TERMINE_COURSE_ALL) {
+    if ($courseid === \local_zsk_termine\local\constants::COURSE_ALL) {
         // No course filter.
     } else if ($courseid !== null && $courseid > 0) {
         $where .= ' AND e.courseid = :courseid';
@@ -520,7 +513,7 @@ function local_zsk_termine_count_past_events(?int $categoryid = null, ?int $cour
         $params['categoryid'] = $categoryid;
     }
 
-    if ($courseid === LOCAL_ZSK_TERMINE_COURSE_ALL) {
+    if ($courseid === \local_zsk_termine\local\constants::COURSE_ALL) {
         // No course filter.
     } else if ($courseid !== null && $courseid > 0) {
         $where .= ' AND courseid = :courseid';
@@ -535,12 +528,12 @@ function local_zsk_termine_count_past_events(?int $categoryid = null, ?int $cour
 /**
  * Template data for "Alle Termine | Vergangene Termine" navigation.
  *
- * @param string $activeview LOCAL_ZSK_TERMINE_VIEW_UPCOMING|LOCAL_ZSK_TERMINE_VIEW_PAST
+ * @param string $activeview \local_zsk_termine\local\constants::VIEW_UPCOMING|\local_zsk_termine\local\constants::VIEW_PAST
  * @param int $categoryid
  * @return array<string,mixed>
  */
 function local_zsk_termine_get_view_tabs_template_data(
-    string $activeview = LOCAL_ZSK_TERMINE_VIEW_UPCOMING,
+    string $activeview = \local_zsk_termine\local\constants::VIEW_UPCOMING,
     int $categoryid = 0
 ): array {
     $params = [];
@@ -552,11 +545,11 @@ function local_zsk_termine_get_view_tabs_template_data(
         'allurl' => (new moodle_url('/local/zsk_termine/index.php', $params))->out(false),
         'alllabel' => get_string('all_events', 'local_zsk_termine'),
         'pasturl' => (new moodle_url('/local/zsk_termine/index.php', array_merge($params, [
-            'view' => LOCAL_ZSK_TERMINE_VIEW_PAST,
+            'view' => \local_zsk_termine\local\constants::VIEW_PAST,
         ])))->out(false),
         'pastlabel' => get_string('past_events', 'local_zsk_termine'),
-        'activeupcoming' => $activeview === LOCAL_ZSK_TERMINE_VIEW_UPCOMING,
-        'activepast' => $activeview === LOCAL_ZSK_TERMINE_VIEW_PAST,
+        'activeupcoming' => $activeview === \local_zsk_termine\local\constants::VIEW_UPCOMING,
+        'activepast' => $activeview === \local_zsk_termine\local\constants::VIEW_PAST,
     ];
 }
 
@@ -565,7 +558,7 @@ function local_zsk_termine_get_view_tabs_template_data(
  * @param int $categoryid
  * @return string
  */
-function local_zsk_termine_render_view_tabs_html(string $activeview = LOCAL_ZSK_TERMINE_VIEW_UPCOMING, int $categoryid = 0): string {
+function local_zsk_termine_render_view_tabs_html(string $activeview = \local_zsk_termine\local\constants::VIEW_UPCOMING, int $categoryid = 0): string {
     global $PAGE;
 
     /** @var \local_zsk_termine\output\renderer $renderer */
@@ -799,14 +792,14 @@ function local_zsk_termine_render_upcoming_block_html(): string {
     }
 
     $previewcount = local_zsk_termine_get_block_preview_count();
-    $totalupcoming = local_zsk_termine_count_upcoming_events(null, LOCAL_ZSK_TERMINE_COURSE_ALL);
-    $totalpast = local_zsk_termine_count_past_events(null, LOCAL_ZSK_TERMINE_COURSE_ALL);
+    $totalupcoming = local_zsk_termine_count_upcoming_events(null, \local_zsk_termine\local\constants::COURSE_ALL);
+    $totalpast = local_zsk_termine_count_past_events(null, \local_zsk_termine\local\constants::COURSE_ALL);
     if ($totalupcoming === 0 && $totalpast === 0) {
         return '';
     }
 
     $events = $totalupcoming > 0
-        ? local_zsk_termine_get_upcoming_events(null, $previewcount, false, LOCAL_ZSK_TERMINE_COURSE_ALL)
+        ? local_zsk_termine_get_upcoming_events(null, $previewcount, false, \local_zsk_termine\local\constants::COURSE_ALL)
         : [];
 
     return local_zsk_termine_render_block_html($events, $totalupcoming, $previewcount);
@@ -875,7 +868,7 @@ function local_zsk_termine_render_block_html(array $events, int $totalcount, int
 
     $heading = get_string('upcoming_heading', 'local_zsk_termine');
     $data = array_merge(
-        local_zsk_termine_get_view_tabs_template_data(LOCAL_ZSK_TERMINE_VIEW_UPCOMING),
+        local_zsk_termine_get_view_tabs_template_data(\local_zsk_termine\local\constants::VIEW_UPCOMING),
         [
             'titlehtml' => $OUTPUT->heading($heading, 2, 'local-zsk-fp-element-title'),
             'events' => [],
@@ -922,7 +915,7 @@ function local_zsk_termine_count_upcoming_events(?int $categoryid = null, ?int $
         $params['categoryid'] = $categoryid;
     }
 
-    if ($courseid === LOCAL_ZSK_TERMINE_COURSE_ALL) {
+    if ($courseid === \local_zsk_termine\local\constants::COURSE_ALL) {
         // No course filter.
     } else if ($courseid !== null && $courseid > 0) {
         $where .= ' AND courseid = :courseid';
@@ -1137,7 +1130,7 @@ function local_zsk_termine_digest_build_section(int $since): array {
         return ['html' => '', 'plain' => '', 'hascontent' => false];
     }
 
-    $events = local_zsk_termine_get_upcoming_events(null, 20, false, LOCAL_ZSK_TERMINE_COURSE_ALL);
+    $events = local_zsk_termine_get_upcoming_events(null, 20, false, \local_zsk_termine\local\constants::COURSE_ALL);
     $newevents = array_filter($events, function ($event) use ($since) {
         return (int) ($event->timecreated ?? 0) >= $since;
     });
@@ -1174,7 +1167,7 @@ function local_zsk_termine_digest_build_section(int $since): array {
 function local_zsk_termine_build_ical_feed(?int $categoryid = null, ?int $courseid = 0): string {
     global $CFG;
 
-    $coursefilter = $courseid === null ? LOCAL_ZSK_TERMINE_COURSE_ALL : (int) $courseid;
+    $coursefilter = $courseid === null ? \local_zsk_termine\local\constants::COURSE_ALL : (int) $courseid;
     $events = local_zsk_termine_get_upcoming_events($categoryid, 500, false, $coursefilter);
 
     $lines = [
