@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -1126,6 +1126,8 @@ function local_zsk_termine_queue_cancellation_notification(int $eventid): int {
  * @return array{html: string, plain: string, hascontent: bool}
  */
 function local_zsk_termine_digest_build_section(int $since): array {
+    global $CFG;
+
     if (!\local_zsk_termine\util\license::can_use_digest()) {
         return ['html' => '', 'plain' => '', 'hascontent' => false];
     }
@@ -1139,14 +1141,42 @@ function local_zsk_termine_digest_build_section(int $since): array {
         return ['html' => '', 'plain' => '', 'hascontent' => false];
     }
 
-    $html = html_writer::tag('h3', get_string('digest_heading', 'local_zsk_termine'));
-    $plain = get_string('digest_heading', 'local_zsk_termine') . "\n\n";
-    $html .= html_writer::start_tag('ul');
+    $typelabel = get_string('digest_type_event', 'local_zsk_local_newsletter');
+    if (!get_string_manager()->string_exists('digest_type_event', 'local_zsk_local_newsletter')) {
+        $typelabel = get_string('pluginname', 'local_zsk_termine');
+    }
+
+    $items = [];
     foreach ($newevents as $event) {
         $url = (new moodle_url('/local/zsk_termine/view.php', ['id' => $event->id]))->out(false);
-        $line = format_string($event->title) . ' – ' . local_zsk_termine_format_event_datetime($event);
-        $html .= html_writer::tag('li', html_writer::link($url, $line));
-        $plain .= '- ' . $line . ' ' . $url . "\n";
+        $title = format_string($event->title) . ' – ' . local_zsk_termine_format_event_datetime($event);
+        $description = local_zsk_termine_format_event_preview($event, 320);
+        $items[] = [
+            'type' => $typelabel,
+            'title' => $title,
+            'url' => $url,
+            'imageurl' => local_zsk_termine_digest_event_image_url($event),
+            'description' => $description,
+        ];
+    }
+
+    $heading = get_string('digest_heading', 'local_zsk_termine');
+    if (class_exists(\local_zsk_local_newsletter\digest_builder::class)) {
+        $rendered = \local_zsk_local_newsletter\digest_builder::render_section($heading, $items);
+        return [
+            'html' => $rendered['html'],
+            'plain' => $rendered['plain'],
+            'hascontent' => true,
+        ];
+    }
+
+    // Fallback if newsletter helper is unavailable.
+    $html = html_writer::tag('h3', $heading);
+    $plain = $heading . "\n\n";
+    $html .= html_writer::start_tag('ul');
+    foreach ($items as $item) {
+        $html .= html_writer::tag('li', html_writer::link($item['url'], $item['title']));
+        $plain .= '- ' . $item['title'] . ' ' . $item['url'] . "\n";
     }
     $html .= html_writer::end_tag('ul');
 
@@ -1155,6 +1185,43 @@ function local_zsk_termine_digest_build_section(int $since): array {
         'plain' => $plain,
         'hascontent' => true,
     ];
+}
+
+/**
+ * First embedded image from an event description, as absolute pluginfile URL.
+ *
+ * @param stdClass $event
+ * @return string
+ */
+function local_zsk_termine_digest_event_image_url(stdClass $event): string {
+    global $CFG;
+
+    require_once($CFG->libdir . '/filelib.php');
+
+    $eventid = (int) ($event->id ?? 0);
+    if ($eventid <= 0) {
+        return '';
+    }
+
+    $context = context_system::instance();
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'local_zsk_termine', 'description', $eventid, 'filepath, filename', false);
+    foreach ($files as $file) {
+        if (!$file->is_valid_image()) {
+            continue;
+        }
+        $url = moodle_url::make_pluginfile_url(
+            $file->get_contextid(),
+            $file->get_component(),
+            $file->get_filearea(),
+            $eventid,
+            $file->get_filepath(),
+            $file->get_filename()
+        );
+        return $url->out(false);
+    }
+
+    return '';
 }
 
 /**

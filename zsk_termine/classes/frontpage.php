@@ -84,7 +84,7 @@ class frontpage {
      * @param bool $loggedin
      * @return int|false
      */
-    public static function get_centre_column_slot_index(string $slot, bool $loggedin = true): int|false {
+    public static function get_centre_column_slot_index(string $slot, bool $loggedin = true) {
         $centreindex = 0;
         foreach (self::get_layout_slots($loggedin) as $layoutslot) {
             if ($layoutslot === $slot) {
@@ -101,7 +101,7 @@ class frontpage {
     /**
      * @return int|false Zero-based position among centre-column frontpage elements.
      */
-    public static function get_termine_slot_index(): int|false {
+    public static function get_termine_slot_index() {
         return self::get_centre_column_slot_index(self::FRONTPAGETERMINE, true);
     }
 
